@@ -111,31 +111,59 @@
       </audio>
   <!-- partial -->
   <script>
-  function exec() {
-         document.getElementById('audio').play();
-         openFullscreen()
-      }
-      
-    const buttons = document.querySelectorAll(".card-buttons button");
-    const sections = document.querySelectorAll(".card-section");
-    const card = document.querySelector(".card");
-    const handleButtonClick = e => {
-      const targetSection = e.target.getAttribute("data-section");
-      const section = document.querySelector(targetSection);
-      targetSection !== "#about" ?
-        card.classList.add("is-active") :
+    function exec() {
+    document.getElementById('audio').play();
+    openFullscreen();
+}
+
+// Seleksi elemen tombol dan bagian kartu
+const buttons = document.querySelectorAll(".card-buttons button");
+const sections = document.querySelectorAll(".card-section");
+const card = document.querySelector(".card");
+
+// Fungsi untuk menangani klik tombol
+const handleButtonClick = (e) => {
+    const targetSection = e.target.getAttribute("data-section");
+    const section = document.querySelector(targetSection);
+
+    // Tambahkan atau hapus kelas `is-active` pada kartu
+    if (targetSection !== "#about") {
+        card.classList.add("is-active");
+    } else {
         card.classList.remove("is-active");
-      card.setAttribute("data-state", targetSection);
-      sections.forEach(s => s.classList.remove("is-active"));
-      buttons.forEach(b => b.classList.remove("is-active"));
-      e.target.classList.add("is-active");
-      section.classList.add("is-active");
-    };
-    buttons.forEach(btn => {
-      btn.addEventListener("click", handleButtonClick);
-    });
-    function openFullscreen(){let elem=document.documentElement;elem.requestFullscreen?elem.requestFullscreen():elem.mozRequestFullScreen?elem.mozRequestFullScreen():elem.webkitRequestFullscreen?elem.webkitRequestFullscreen():elem.msRequestFullscreen&&elem.msRequestFullscreen()}buttons.forEach((btn=>{btn.addEventListener("click",handleButtonClick)}));
-  </script>
+    }
+
+    // Setel atribut data-state pada kartu
+    card.setAttribute("data-state", targetSection);
+
+    // Atur ulang semua bagian dan tombol
+    sections.forEach((s) => s.classList.remove("is-active"));
+    buttons.forEach((b) => b.classList.remove("is-active"));
+
+    // Aktifkan tombol dan bagian yang sesuai
+    e.target.classList.add("is-active");
+    section.classList.add("is-active");
+};
+
+// Tambahkan event listener pada semua tombol
+buttons.forEach((btn) => {
+    btn.addEventListener("click", handleButtonClick);
+});
+
+// Fungsi untuk membuka layar penuh
+function openFullscreen() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen(); // Firefox
+    } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen(); // Chrome, Safari, Opera
+    } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen(); // IE/Edge
+    }
+}
+    </script>
   <script src="https://cdn.jsdelivr.net/gh/scottschiller/Snowstorm/snowstorm.js" type="text/javascript"></script>
   <script src="https://cdn.rawgit.com/bungfrangki/efeksalju/2a7805c7/efek-salju.js" type="text/javascript"></script>
   <div class="footer">
